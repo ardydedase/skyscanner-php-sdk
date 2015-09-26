@@ -62,7 +62,7 @@ copyright = u'2015, Ardy Dedase'
 #
 # The short X.Y version.
 # version = skyscanner.__version__
-version = 0.1.0
+version = '0.1.0'
 # The full version, including alpha/beta/rc tags.
 # release = skyscanner.__version__
 release = version
