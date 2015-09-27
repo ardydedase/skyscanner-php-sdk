@@ -171,8 +171,6 @@ class FlightsTest extends PHPUnit_Framework_TestCase
             )
         )->parsed;
 
-        // echo "\ntestGetCheapestQuotes:\n";
-        // var_dump($result);
         $this->assertTrue(property_exists($result, 'Quotes'));
         $this->assertTrue(count($result->Quotes) > 0);
     }
@@ -191,9 +189,6 @@ class FlightsTest extends PHPUnit_Framework_TestCase
             'adults' => 1
         ))->parsed;
 
-        // echo "\ntestGetResultJSON:\n";
-        // var_dump($result);
-
         $this->assertTrue(property_exists($result, 'Itineraries'));
         $this->assertTrue(count($result->Itineraries) > 0);        
     }
@@ -203,21 +198,14 @@ class CarHireTest extends PHPUnit_Framework_TestCase
 {
     public function setUp() 
     {
-        // $skyscanner = new Skyscanner();
         $this->carHire = new CarHire(API_KEY);
 
         $dateTimeFormat = 'Y-m-d\TH:i';
         $pickUpDateTime = strftime(Date($dateTimeFormat));
-        $dropOffDateTime = strftime(Date($dateTimeFormat)); 
-
-        echo "pickUpDateTime:" . $pickUpDateTime . "\n";
-        echo "dropOffDateTime:" . $dropOffDateTime . "\n";
+        $dropOffDateTime = strftime(Date($dateTimeFormat));
 
         $this->pickUp = Date($dateTimeFormat, strtotime($pickUpDateTime . ' + 30 days'));
         $this->dropOff = Date($dateTimeFormat, strtotime($dropOffDateTime . ' + 37 days'));
-
-        echo "pickUpDateTime:" . $this->pickUp . "\n";
-        echo "dropOffDateTime:" . $this->dropOff . "\n";
     }
 
     public function tearDown()
@@ -258,12 +246,6 @@ class CarHireTest extends PHPUnit_Framework_TestCase
             'driverage' => '30',
             'userip' => '175.156.244.174'
         ))->parsed;
-
-        echo "\ntestGetResultJSON:\n";
-        var_dump($result);
-
-        // $this->assertTrue(property_exists($result, 'cars'));
-        // $this->assertTrue(property_exists($result, 'websites'));   
     }    
 }
 
@@ -314,10 +296,7 @@ class HotelsTest extends PHPUnit_Framework_TestCase
             'rooms' => 1
         ))->parsed;
 
-        echo "\ntestGetResultJSON:\n";
-        var_dump($result);
-
-        // $this->assertTrue(property_exists($result, 'cars'));
-        // $this->assertTrue(property_exists($result, 'websites'));   
+        $this->assertTrue(property_exists($result, 'cars'));
+        $this->assertTrue(property_exists($result, 'websites'));   
     }      
 }

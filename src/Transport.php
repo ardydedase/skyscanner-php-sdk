@@ -3,7 +3,7 @@
  * @Author: ardydedase
  * @Date:   2015-09-18 00:42:32
  * @Last Modified by:   ardydedase
- * @Last Modified time: 2015-09-26 12:07:14
+ * @Last Modified time: 2015-09-27 12:13:04
  */
 
 namespace Skyscanner\Transport;
@@ -36,7 +36,6 @@ function httpRequest(
 
     echo "\nserviceURL: $serviceUrl\n";
     echo "\nmethod: $method\n";
-    var_dump($data);
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $serviceUrl);
@@ -165,8 +164,6 @@ class Transport
     public function getMarkets($market)
     {
         $serviceUrl = "{$this->marketServiceUrl}/{$market}";
-        var_dump(self::sessionHeaders());
-
         return $this->makeRequest($serviceUrl, GET, self::sessionHeaders());
     }
 
@@ -436,9 +433,6 @@ class CarHire extends Transport
 
     public function isPollComplete($pollResp)
     {
-        echo "pollResp:";
-        var_dump($pollResp);
-
         if (!$pollResp->parsed) {
             return false;
         }
