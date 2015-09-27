@@ -10,11 +10,10 @@
         }
     ],
     "require": {
-        "phpunit/phpunit": "4.0.*"
+        "phpunit/phpunit": "4.6.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.0.*",
-        "katzgrau/klogger": "dev-master"
+        "phpunit/phpunit": "4.6.*"
     },
     "autoload": {
         "classmap": [
