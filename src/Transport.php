@@ -3,7 +3,7 @@
  * @Author: ardydedase
  * @Date:   2015-09-18 00:42:32
  * @Last Modified by:   ardydedase
- * @Last Modified time: 2015-09-27 12:13:04
+ * @Last Modified time: 2015-09-27 12:31:06
  */
 
 namespace Skyscanner\Transport;
@@ -411,11 +411,6 @@ class CarHire extends Transport
         $paramsPath = self::constructParams($params, $reqParams);
         $serviceUrl = "{$this->pricingSessionUrl}/{$paramsPath}";
 
-        // $requestParams = array(
-        //     'userip' => $params['userip']
-        // );
-
-        echo "\nSERVICE URL: $serviceUrl\n";
         $pollPath = $this->makeRequest(
             $serviceUrl,
             GET,
@@ -425,8 +420,6 @@ class CarHire extends Transport
             STRICT,
             $params
         );      
-
-        echo "\npollPath: $pollPath\n";
 
         return self::API_HOST . $pollPath;
     }

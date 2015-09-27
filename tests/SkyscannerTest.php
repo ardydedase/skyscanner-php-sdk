@@ -28,11 +28,7 @@ class TransportTest extends PHPUnit_Framework_TestCase
     public function testGetMarketsJSON() 
     {
         $transport = new Transport(API_KEY, 'json');
-
-        echo "testGetMarkets\n";
         $result = $transport->getMarkets('en-GB')->parsed;
-        // print_r($result->Countries);
-
         $this->assertTrue(property_exists($result, 'Countries'));
         $this->assertTrue(count($result->Countries) > 0);
     }
@@ -66,19 +62,16 @@ class FlightsTest extends PHPUnit_Framework_TestCase
 {
     public function setUp() 
     {
-        // $skyscanner = new Skyscanner();
         $this->flights = new Flights(API_KEY);
 
         $dateTimeFormat = 'Y-m';
         $outboundDateTime = Date($dateTimeFormat);
-        echo $outboundDateTime;
         $inboundDateTime = Date($dateTimeFormat, strtotime("+31 days", $outboundDateTime));
 
         $this->outbound = strftime($dateTimeFormat, $outboundDateTime);
         $this->inbound = strftime($dateTimeFormat, $inboundDateTime);
 
         $inboundDateTime = Date($dateTimeFormat, strtotime("+3 days", $outboundDateTime));
-        print "\necho: $inboundDateTime\n";
         
         $dateTimeFormat = 'Y-m-d';
         $this->outboundDays = strftime(Date($dateTimeFormat));
@@ -95,10 +88,6 @@ class FlightsTest extends PHPUnit_Framework_TestCase
 
     public function testCreateSession()
     {
-        echo "testCreateSession";
-        echo $this->outboundDays;
-        echo $this->inboundDays;
-
         $pollUrl = $this->flights->createSession(
             array(
                 'country' => 'UK',
@@ -117,7 +106,6 @@ class FlightsTest extends PHPUnit_Framework_TestCase
 
     public function testGetCheapestPriceByDate()
     {
-        echo "\ntestGetCheapestPriceByDate\n";
         $flightsCacheService = new FlightsCache(API_KEY);
         $result = $flightsCacheService->getCheapestPriceByDate(
             array(
@@ -131,8 +119,6 @@ class FlightsTest extends PHPUnit_Framework_TestCase
             )
         )->parsed;
 
-        // echo "\nCOUNT: " . count($result) . "\n";
-        // var_dump($result);
         $this->assertTrue(property_exists($result, 'Dates'));
         $this->assertTrue(count($result->Dates) > 0);
     }
@@ -296,7 +282,7 @@ class HotelsTest extends PHPUnit_Framework_TestCase
             'rooms' => 1
         ))->parsed;
 
-        $this->assertTrue(property_exists($result, 'cars'));
-        $this->assertTrue(property_exists($result, 'websites'));   
+        $this->assertTrue(property_exists($result, 'total_hotels'));
+        $this->assertTrue(property_exists($result, 'total_available_hotels'));   
     }      
 }
