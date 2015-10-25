@@ -1,4 +1,5 @@
 <?php
+
 namespace Skyscanner\Transport;
 
 use PHPUnit_Framework_TestCase;
@@ -21,7 +22,7 @@ class TransportTest extends PHPUnit_Framework_TestCase
 
     public function testEmptyAPIKey() 
     {
-        $this->setExpectedException('BadFunctionCallException');        
+        $this->setExpectedException('BadFunctionCallException');
         $transport = new Transport('');
     }
 
