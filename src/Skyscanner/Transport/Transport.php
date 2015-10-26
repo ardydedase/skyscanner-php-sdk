@@ -83,16 +83,15 @@ class Transport
      */
     protected function makeRequest(
         $serviceUrl,
-        $method = GET,
+        $method = self::GET,
         $headers = null,
         $data = null,
         $callback = null,
-        $errors = STRICT,
+        $errors = self::STRICT,
         array $params = []
     ) {
-
         $timeout = 30;
-        $errorModes = array(STRICT, GRACEFUL, IGNORE);
+        $errorModes = array(self::STRICT, self::GRACEFUL, self::IGNORE);
         $errorMode = $errors;
 
         if (!in_array($errorMode, $errorModes)) {
@@ -135,7 +134,7 @@ class Transport
     public function getMarkets($market)
     {
         $serviceUrl = "{$this->marketServiceUrl}/{$market}";
-        return $this->makeRequest($serviceUrl, GET, self::sessionHeaders());
+        return $this->makeRequest($serviceUrl, self::GET, self::sessionHeaders());
     }
 
     /**
@@ -147,8 +146,7 @@ class Transport
     {
         $paramsPath = self::constructParams($params, $this->locationAutosuggestParams);
         $serviceUrl = "{$this->locationAutosuggestUrl}/{$paramsPath}";
-
-        return $this->makeRequest($serviceUrl, $params);
+        return $this->makeRequest($serviceUrl);
     }
 
     /**
@@ -174,7 +172,7 @@ class Transport
         float $initialDelay = null,
         $delay = 1,
         $tries = 10,
-        $errors = STRICT,
+        $errors = self::STRICT,
         array $params = []
     ) {
         $initialDelay = ($initialDelay == null) ? 2.0 : $initialDelay;
@@ -185,7 +183,7 @@ class Transport
             echo "polling, tries: $n";
             $pollResponse = $this->makeRequest(
                 $pollUrl,
-                GET,
+                self::GET,
                 null,
                 null,
                 null,
@@ -200,7 +198,7 @@ class Transport
             }
         }
 
-        if (STRICT == $errors) {
+        if (self::STRICT == $errors) {
             throw new ExceededRetriesException("Failed to poll within {$tries} tries.");
         } else {
             return $pollResponse;
@@ -232,7 +230,7 @@ class Transport
      * @return mixed|null
      * @throws ExceededRetriesException
      */
-    public function getResult($errors = STRICT, array $params = [])
+    public function getResult($errors = self::STRICT, array $params = [])
     {
         return $this->poll($this->createSession($params), null, 1, 10, $errors);
     }
@@ -247,10 +245,11 @@ class Transport
     {
         $params_list = array();
         foreach($requiredKeys as $requiredKey) {
-            $params_list[] = $params[$requiredKey];
             if (!array_key_exists($requiredKey, $params)) {
                 print("\n$requiredKey does not exist");
                 throw new BadFunctionCallException("'Missing expected request parameter: $requiredKey");
+            } else {
+                $params_list[] = $params[$requiredKey];
             }
         }
         // TODO: optKeys
@@ -300,7 +299,7 @@ class Transport
     public static function parseResp($resp, $responseFormat)
     {
         if ($responseFormat == 'json') {
-            $resp = getJSONStr($resp);
+            $resp = NetworkUtils::getJSONStr($resp);
 
             $jsonObj = json_decode($resp);
 
