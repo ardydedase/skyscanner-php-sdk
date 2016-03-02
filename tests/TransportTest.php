@@ -3,6 +3,7 @@
 namespace tests;
 
 use PHPUnit_Framework_TestCase;
+use Skyscanner\Tests\BaseSkyscannerTest;
 use Skyscanner\Transport\Transport;
 
 date_default_timezone_set('Asia/Singapore');
@@ -13,15 +14,17 @@ date_default_timezone_set('Asia/Singapore');
  * @package tests
  * @author * *
  */
-class TransportTest extends PHPUnit_Framework_TestCase
+class TransportTest extends BaseSkyscannerTest
 {
-    const API_KEY = 'py495888586774232134437415165965';
-
+    /**
+     * @var Transport
+     */
     private $transport;
 
     public function setUp()
     {
-        $this->transport = new Transport(self::API_KEY);
+        parent::setUp();
+        $this->transport    = new Transport($this->API_KEY);
     }
 
     public function tearDown()
@@ -37,7 +40,7 @@ class TransportTest extends PHPUnit_Framework_TestCase
 
     public function testGetMarketsJSON()
     {
-        $transport = new Transport(self::API_KEY, 'json');
+        $transport = new Transport($this->API_KEY, 'json');
         $result = $transport->getMarkets('en-GB')->parsed;
         $this->assertTrue(property_exists($result, 'Countries'));
         $this->assertTrue(count($result->Countries) > 0);
@@ -56,7 +59,7 @@ class TransportTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('1/2/3', Transport::constructParams($params, array('a', 'b', 'c')));
     }
 
-    public function testLocationAutosuggest()
+    public function ftestLocationAutosuggest()
     {
         $result = $this->transport->locationAutosuggest(array(
             'market' => 'UK',
