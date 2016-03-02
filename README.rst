@@ -2,8 +2,8 @@
 Skyscanner PHP SDK
 ===============================
 
-.. image:: https://api.travis-ci.org/Skyscanner/skyscanner-php-sdk.svg
-    :target: https://travis-ci.org/Skyscanner/skyscanner-php-sdk
+.. image:: https://travis-ci.org/projectivemotion/skyscanner-php-sdk.svg?branch=develop
+    :target: https://travis-ci.org/projectivemotion/skyscanner-php-sdk
 
 .. image:: https://img.shields.io/pypi/v/skyscanner.svg
     :target: https://pypi.python.org/pypi/skyscanner
