@@ -6,6 +6,7 @@
          bootstrap="src/autoload.php"
 -->
 <phpunit backupGlobals="false"
+         bootstrap="vendor/autoload.php"
          backupStaticAttributes="false"
          colors="true"
          convertErrorsToExceptions="true"
@@ -16,7 +17,7 @@
          syntaxCheck="false">
     <php>
         <!-- CHANGE THIS TO YOUR API KEY -->
-        <env name="SKYSCANNER_APIKEY" value="MY-API-KEY" />
+        <env name="SKYSCANNER_APIKEY" value="" />
     </php>
     <testsuites>
         <testsuite name="SkyScanner SDK">
