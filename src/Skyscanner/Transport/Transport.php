@@ -132,11 +132,11 @@ class Transport
         // use our own httpRequest function if HttpRequest class is not available.
         $r = NetworkUtils::httpRequest($serviceUrl, $headers, $method, $data);
 
-        try {
+//        try {
             return call_user_func($callback, $r);
-        } catch(Exception $e) {
-            return self::withErrorHandling($r, null, $errorMode);
-        }
+//        } catch(Exception $e) {
+//            return self::withErrorHandling($r, null, $errorMode);
+//        }
     }
 
     /**
