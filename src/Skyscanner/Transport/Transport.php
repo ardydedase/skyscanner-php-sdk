@@ -49,10 +49,22 @@ class Transport
      */
     protected $locationAutosuggestParams;
 
+    protected $response_format;
+
     /**
      * @var string
      */
-    protected static $responseFormat;
+//    protected static $responseFormat;
+
+    public function setResponseFormat($response_format)
+    {
+        $this->response_format = $response_format;
+    }
+
+    public function getResponseFormat()
+    {
+        return $this->response_format;
+    }
 
     /**
      * @param string $apiKey
@@ -60,7 +72,8 @@ class Transport
      */
     public function __construct($apiKey, $responseFormat = 'json')
     {
-        self::$responseFormat = strtolower($responseFormat);
+//        self::$responseFormat = strtolower($responseFormat);
+        $this->setResponseFormat($responseFormat);
 
         if (!$apiKey) {
             throw new BadFunctionCallException('API Key must be specified.');
@@ -103,10 +116,10 @@ class Transport
         }
 
         // echo "strpos: " . strpos('apikey', strtolower($serviceUrl));
-        if (strpos(strtolower($serviceUrl), 'apikey') == false) {
-            echo "API key not found in: " . $serviceUrl;
+//        if (strpos(strtolower($serviceUrl), 'apikey') == false) {
+//            echo "API key not found in: " . $serviceUrl;
             $params['apiKey'] = $this->apiKey;
-        }
+//        }
 
         if (count($params) > 0) {
             $serviceUrl .= '?' . http_build_query($params);
@@ -134,7 +147,7 @@ class Transport
     public function getMarkets($market)
     {
         $serviceUrl = "{$this->marketServiceUrl}/{$market}";
-        return $this->makeRequest($serviceUrl, self::GET, self::sessionHeaders());
+        return $this->makeRequest($serviceUrl, self::GET, $this->sessionHeaders());
     }
 
     /**
@@ -169,7 +182,7 @@ class Transport
      */
     public function poll(
         $pollUrl,
-        float $initialDelay = null,
+        $initialDelay = null,   // float
         $delay = 1,
         $tries = 10,
         $errors = self::STRICT,
@@ -264,9 +277,9 @@ class Transport
     /**
      * @return array
      */
-    public static function sessionHeaders()
+    public function sessionHeaders()
     {
-        $headers = self::headers();
+        $headers = $this->headers();
         $headers[] = 'content-type: application/x-www-form-urlencoded';
         return $headers;
     }
@@ -274,18 +287,18 @@ class Transport
     /**
      * @return array
      */
-    public static function headers()
+    public function headers()
     {
-        return array("accept: application/" . self::$responseFormat);
+        return array("accept: application/" . $this->getResponseFormat());
     }
 
     /**
      * @param $resp
      * @return object
      */
-    public static function defaultRespCallback($resp)
+    public function defaultRespCallback($resp)
     {
-        return self::parseResp($resp, self::$responseFormat);
+        return self::parseResp($resp, $this->getResponseFormat());
     }
 
     /**
@@ -332,7 +345,7 @@ class Transport
      */
     public static function getPollURL($resp)
     {
-        $headers = getHeaders($resp);
+        $headers = NetworkUtils::getHeaders($resp);
         return $headers['Location'];
     }
 }

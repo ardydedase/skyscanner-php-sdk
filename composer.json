@@ -16,6 +16,9 @@
         "phpunit/phpunit": "4.6.*"
     },
     "autoload": {
+        "psr-4": {
+            "Skyscanner\\Tests\\" : "tests/"
+        },
         "classmap": [
             "src/"
         ]

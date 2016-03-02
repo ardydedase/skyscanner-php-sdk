@@ -3,6 +3,7 @@
     phpunit configuration file
 
     phpunit -c phpunit.xml
+         bootstrap="src/autoload.php"
 -->
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
@@ -12,8 +13,11 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false"
-         syntaxCheck="false"
-         bootstrap="src/autoload.php">
+         syntaxCheck="false">
+    <php>
+        <!-- CHANGE THIS TO YOUR API KEY -->
+        <env name="SKYSCANNER_APIKEY" value="MY-API-KEY" />
+    </php>
     <testsuites>
         <testsuite name="SkyScanner SDK">
             <directory suffix=".php">./tests</directory>

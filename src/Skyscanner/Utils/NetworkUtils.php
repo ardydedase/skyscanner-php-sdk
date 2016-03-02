@@ -22,8 +22,8 @@ class NetworkUtils
         $method = Transport::GET,
         $data = null) {
 
-        echo "\nserviceURL: $serviceUrl\n";
-        echo "\nmethod: $method\n";
+//        echo "\nserviceURL: $serviceUrl\n";
+//        echo "\nmethod: $method\n";
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $serviceUrl);

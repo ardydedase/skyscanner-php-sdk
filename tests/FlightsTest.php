@@ -2,8 +2,9 @@
 
 namespace tests;
 
-use PHPUnit_Framework_TestCase;
+use Skyscanner\Tests\BaseSkyscannerTest;
 use Skyscanner\Transport\Flights;
+use Skyscanner\Transport\FlightsCache;
 
 date_default_timezone_set('Asia/Singapore');
 
@@ -11,29 +12,33 @@ date_default_timezone_set('Asia/Singapore');
  * Class FlightsTest
  * @package tests
  */
-class FlightsTest extends PHPUnit_Framework_TestCase
+class FlightsTest extends BaseSkyscannerTest
 {
-    const API_KEY = 'py495888586774232134437415165965';
-
+    /**
+     * @var Flights
+     */
+    protected $flights;
     public function setUp()
     {
-        $this->flights = new Flights(self::API_KEY);
+        parent::setUp();
+        $this->flights = new Flights($this->API_KEY);
 
-        $dateTimeFormat = 'Y-m';
-        $outboundDateTime = Date($dateTimeFormat);
-        $inboundDateTime = Date($dateTimeFormat, strtotime("+31 days", $outboundDateTime));
+        $dateTimeFormat = '%Y-%m';
+//        $outboundDateTime = Date($dateTimeFormat);
+//        $inboundDateTime = Date($dateTimeFormat, strtotime("+31 days", $outboundDateTime));
 
-        $this->outbound = strftime($dateTimeFormat, $outboundDateTime);
-        $this->inbound = strftime($dateTimeFormat, $inboundDateTime);
+        $this->outbound = strftime($dateTimeFormat, time());
+        $this->inbound = strftime($dateTimeFormat, strtotime("+31 days"));
 
-        $inboundDateTime = Date($dateTimeFormat, strtotime("+3 days", $outboundDateTime));
+//        $inboundDateTime = Date($dateTimeFormat, strtotime("+3 days", $outboundDateTime));
 
-        $dateTimeFormat = 'Y-m-d';
-        $this->outboundDays = strftime(Date($dateTimeFormat));
-        $this->inboundDays = strftime(Date($dateTimeFormat));
+        $dateTimeFormat = '%Y-%m-%d';
+        $this->outboundDays = strftime($dateTimeFormat, time()+60*60*24*30);    //Date($dateTimeFormat));
+        $this->inboundDays = strftime($dateTimeFormat, time()+60*60*24*37); //Date($dateTimeFormat));
 
-        $this->outboundDays = Date($dateTimeFormat, strtotime($this->outboundDays . ' + 30 days'));
-        $this->inboundDays = Date($dateTimeFormat, strtotime($this->inboundDays . ' + 37 days'));
+//        var_dump($this);
+//        $this->outboundDays = Date($dateTimeFormat, strtotime($this->outboundDays . ' + 30 days'));
+//        $this->inboundDays = Date($dateTimeFormat, strtotime($this->inboundDays . ' + 37 days'));
     }
 
     public function tearDown()
@@ -61,7 +66,7 @@ class FlightsTest extends PHPUnit_Framework_TestCase
 
     public function testGetCheapestPriceByDate()
     {
-        $flightsCacheService = new FlightsCache(self::API_KEY);
+        $flightsCacheService = new FlightsCache($this->API_KEY);
         $result = $flightsCacheService->getCheapestPriceByDate(
             array(
                 'market' => 'GB',
@@ -80,7 +85,7 @@ class FlightsTest extends PHPUnit_Framework_TestCase
 
     public function testGetCheapestPriceByRoute()
     {
-        $flightsCacheService = new FlightsCache(self::API_KEY);
+        $flightsCacheService = new FlightsCache($this->API_KEY);
         $result = $flightsCacheService->getCheapestPriceByRoute(
             array(
                 'market' => 'GB',
@@ -99,7 +104,7 @@ class FlightsTest extends PHPUnit_Framework_TestCase
 
     public function testGetCheapestQuotes()
     {
-        $flightsCacheService = new FlightsCache(self::API_KEY);
+        $flightsCacheService = new FlightsCache($this->API_KEY);
         $result = $flightsCacheService->getCheapestQuotes(
             array(
                 'market' => 'GB',
@@ -118,8 +123,8 @@ class FlightsTest extends PHPUnit_Framework_TestCase
 
     public function testGetResultJSON()
     {
-        $flights = new Flights(self::API_KEY, 'json');
-        $result = $flights->getResult(GRACEFUL, array(
+        $flights = new Flights($this->API_KEY, 'json');
+        $result = $flights->getResult(Flights::GRACEFUL, array(
             'country' => 'UK',
             'currency' => 'GBP',
             'locale' => 'en-GB',

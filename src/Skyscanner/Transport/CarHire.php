@@ -71,7 +71,7 @@ class CarHire extends Transport
 
         $websites = [];
 
-        if (self::$responseFormat === 'json') {
+        if ($this->getResponseFormat() === 'json') {
             $websites = $pollResp->parsed->websites;
         }
 

@@ -33,8 +33,8 @@ class Flights extends Transport
         $callback = array('self', 'getPollURL');
         return $this->makeRequest(
             $this->pricingSessionUrl,
-            POST,
-            self::sessionHeaders(),
+            self::POST,
+            $this->sessionHeaders(),
             $params,
             $callback
         );
