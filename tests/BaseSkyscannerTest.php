@@ -15,6 +15,10 @@ abstract class BaseSkyscannerTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->API_KEY      =   $_ENV['SKYSCANNER_APIKEY'];
+        // _TRAVISCI is checked first, for use with Travis-CI
+        if(isset($_ENV['SKYSCANNER_APIKEY_TRAVISCI']))
+            $this->API_KEY      =   $_ENV['SKYSCANNER_APIKEY_TRAVISCI'];
+        else
+            $this->API_KEY      =   $_ENV['SKYSCANNER_APIKEY'];
     }
 }
