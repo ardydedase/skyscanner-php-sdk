@@ -9,7 +9,7 @@ namespace Skyscanner\Tests;
 
 use PHPUnit_Framework_TestCase;
 
-class BaseSkyscannerTest extends PHPUnit_Framework_TestCase
+abstract class BaseSkyscannerTest extends PHPUnit_Framework_TestCase
 {
     protected $API_KEY    =   'see phpunit.xml';
 
