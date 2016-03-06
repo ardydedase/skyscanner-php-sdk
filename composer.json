@@ -9,15 +9,17 @@
             "email": "ardy.dedase@skyscanner.net"
         }
     ],
-    "require": {
-        "phpunit/phpunit": "4.6.*"
+    "autoload": {
+        "psr-4": {
+            "Skyscanner\\": "src/Skyscanner/"
+        }
     },
     "require-dev": {
         "phpunit/phpunit": "4.6.*"
     },
-    "autoload": {
-        "classmap": [
-            "src/"
-        ]
+    "autoload-dev": {
+        "psr-4": {
+            "Skyscanner\\Tests\\": "tests/"
+        }
     }
 }

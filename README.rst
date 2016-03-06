@@ -2,8 +2,8 @@
 Skyscanner PHP SDK
 ===============================
 
-.. image:: https://api.travis-ci.org/Skyscanner/skyscanner-php-sdk.svg
-    :target: https://travis-ci.org/Skyscanner/skyscanner-php-sdk
+.. image:: https://travis-ci.org/projectivemotion/skyscanner-php-sdk.svg?branch=master
+    :target: https://travis-ci.org/projectivemotion/skyscanner-php-sdk
 
 .. image:: https://img.shields.io/pypi/v/skyscanner.svg
     :target: https://pypi.python.org/pypi/skyscanner
@@ -18,7 +18,7 @@ Skyscanner PHP SDK
 
 Skyscanner PHP SDK for Skyscanner's API
 
-* Free software: BSD license
+* Free software: Apache 2.0 license
 * SDK Documentation: https://skyscanner-php.readthedocs.org.
 * API Documentation: http://business.skyscanner.net/portal/en-GB/Documentation/ApiOverview
 
@@ -33,7 +33,8 @@ Features
 Installation
 ------------
 
-TODO
+git clone ..
+composer update
 
 Usage
 -----
