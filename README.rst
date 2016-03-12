@@ -33,6 +33,16 @@ Features
 Installation
 ------------
 
+
+Running Tests
+
+.. code:: bash
+
+    docker-compose run php54 phpunit        
+
+    docker-compose run php55 phpunit        
+
+
 TODO
 
 Usage

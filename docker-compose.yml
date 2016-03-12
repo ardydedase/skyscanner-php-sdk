@@ -1,0 +1,11 @@
+php54:
+    image: ardydedase/phpunit-php54
+    volumes: 
+    - .:/app
+    working_dir: /app
+
+php55:
+    image: ardydedase/phpunit-php55
+    volumes: 
+    - .:/app
+    working_dir: /app    
