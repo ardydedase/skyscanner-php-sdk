@@ -33,8 +33,23 @@ Features
 Installation
 ------------
 
-git clone ..
-composer update
+.. code:: bash
+
+	composer update
+
+Running Tests
+--------------
+
+The recommended way of testing in your local machine is using Docker.
+This package includes a ``docker-compose`` file that is meant to run the unit tests on different PHP versions.
+
+.. code:: bash
+
+    docker-compose run php54 phpunit
+
+    docker-compose run php55 phpunit
+
+    docker-compose run php56 phpunit
 
 Usage
 -----

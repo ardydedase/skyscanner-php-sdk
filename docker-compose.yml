@@ -1,0 +1,28 @@
+php54:
+    image: ardydedase/phpunit-php54
+    volumes: 
+    - .:/app
+    working_dir: /app
+    environment:
+        SKYSCANNER_APIKEY: py495888586774232134437415165965
+php55:
+    image: ardydedase/phpunit-php55
+    volumes: 
+    - .:/app
+    working_dir: /app
+    environment:
+        SKYSCANNER_APIKEY: py495888586774232134437415165965
+php56:
+    image: ardydedase/phpunit-php56
+    volumes: 
+    - .:/app
+    working_dir: /app
+    environment:
+        SKYSCANNER_APIKEY: py495888586774232134437415165965
+hhvm:
+    image: ardydedase/phpunit-hhvm
+    volumes: 
+    - .:/app
+    working_dir: /app
+    environment:
+        SKYSCANNER_APIKEY: py495888586774232134437415165965
